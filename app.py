@@ -9,7 +9,7 @@ import requests
 app = Flask(__name__)
 
 # endpoint to ai wildlife ranger
-APP_PING_URL = "https://ai-wildlife-ranger.onrender.com/ping"
+APP_PING_URL = "https://ai-wildlife-ranger-2.onrender.com/ping"
 LOG_FILE = "keep_alive_log.txt"
 
 def log_message(message):
