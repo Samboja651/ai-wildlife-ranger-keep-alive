@@ -1,15 +1,19 @@
 """Flask-based keep alive worker for the AI Wildlife Ranger server on Render."""
 import time
+import os
 from datetime import datetime
 from multiprocessing import Process
+from dotenv import load_dotenv
 from flask import Flask, jsonify
 import requests
 
+load_dotenv('.env')
 # Flask app setup
 app = Flask(__name__)
 
+
 # endpoint to ai wildlife ranger
-APP_PING_URL = "https://ai-wildlife-ranger-2.onrender.com/ping"
+APP_PING_URL = os.getenv('PING_URL')
 LOG_FILE = "keep_alive_log.txt"
 
 def log_message(message):
@@ -26,7 +30,7 @@ def ping_app():
         try:
             response = requests.get(APP_PING_URL, timeout=300)
             if response.status_code == 200:
-                message = f"Ping to ai wildlife ranger successful. Response: {response.json().get('message')}"
+                message = f"Ping to arts-experience was successful. Response: {response.json().get('message')}"
                 log_message(message)
             else:
                 message = f"Either the app server is restarting or is busy: {response.status_code}"
@@ -40,8 +44,8 @@ def ping_app():
 
 @app.route('/ping', methods=['GET'])
 def handle_ping():
-    """Handle ping requests from https://ai-wildlife-ranger.onrender.com/ping."""
-    log_message("Received ping from ai wildlife ranger")
+    """Handle ping requests"""
+    log_message("Received ping from arts-experience: Active")
     return jsonify({"message": "Keep Alive Worker is active"}), 200
 
 # Start the ping_app function as a separate process
