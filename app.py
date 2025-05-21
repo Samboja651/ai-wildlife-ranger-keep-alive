@@ -30,32 +30,34 @@ def ping_servers():
     """Send a request to each app server to keep them alive."""
     while True:
         try:
-            res_arts_experience = requests.get(PING_ARTS_EXPERIENCE, timeout=10)
+            # res_arts_experience = requests.get(PING_ARTS_EXPERIENCE, timeout=10)
             res_ai_wildlife_ranger = requests.get(PING_AI_WILDLIFE_RANGER, timeout=10)
-            if res_arts_experience.status_code == 200 and res_ai_wildlife_ranger.status_code == 200:
-                message_arts = f"Ping to arts-experience was successful. Response: {res_arts_experience.json().get('message')}"
-                print(message_arts)
-                log_message(message_arts)
+            message_ranger = f"Ping to ai-wildlife-ranger was successful. Response: {res_ai_wildlife_ranger.json().get('message')}"
+            print(message_ranger)
+            # if res_arts_experience.status_code == 200 and res_ai_wildlife_ranger.status_code == 200:
+            #     message_arts = f"Ping to arts-experience was successful. Response: {res_arts_experience.json().get('message')}"
+            #     print(message_arts)
+            #     log_message(message_arts)
 
-                message_ranger = f"Ping to ai-wildlife-ranger was successful. Response: {res_ai_wildlife_ranger.json().get('message')}"
-                print(message_ranger)
-                log_message(message_ranger)
-            elif res_arts_experience.status_code == 200 or res_ai_wildlife_ranger.status_code == 200:
-                message_arts = f"Ping to arts-experience was successful. Response: {res_arts_experience.json().get('message')}"
-                print(message_arts)
-                log_message(message_arts)
+            #     message_ranger = f"Ping to ai-wildlife-ranger was successful. Response: {res_ai_wildlife_ranger.json().get('message')}"
+            #     print(message_ranger)
+            #     log_message(message_ranger)
+            # elif res_arts_experience.status_code == 200 or res_ai_wildlife_ranger.status_code == 200:
+            #     message_arts = f"Ping to arts-experience was successful. Response: {res_arts_experience.json().get('message')}"
+            #     print(message_arts)
+            #     log_message(message_arts)
 
-                message_ranger = f"Ping to ai-wildlife-ranger was successful. Response: {res_ai_wildlife_ranger.json().get('message')}"
-                print(message_ranger)
-                log_message(message_ranger)
-            else:
-                message_arts = f"Either the app server is restarting or is busy: {res_arts_experience.status_code}"
-                print(message_arts)
-                log_message(message_arts)
+            #     message_ranger = f"Ping to ai-wildlife-ranger was successful. Response: {res_ai_wildlife_ranger.json().get('message')}"
+            #     print(message_ranger)
+            #     log_message(message_ranger)
+            # else:
+            #     message_arts = f"Either the app server is restarting or is busy: {res_arts_experience.status_code}"
+            #     print(message_arts)
+            #     log_message(message_arts)
 
-                message_ranger = f"Either the app server is restarting or is busy: {res_ai_wildlife_ranger.status_code}"
-                print(message_ranger)
-                log_message(message_ranger)
+            #     message_ranger = f"Either the app server is restarting or is busy: {res_ai_wildlife_ranger.status_code}"
+            #     print(message_ranger)
+            #     log_message(message_ranger)
         except requests.RequestException as e:
             message = f"Failed to reach app.py. Network Issue: {e}"
             log_message(message)
