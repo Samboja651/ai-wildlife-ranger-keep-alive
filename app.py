@@ -15,6 +15,7 @@ app = Flask(__name__)
 # endpoint to ai wildlife ranger
 PING_ADDICTION_SOLVER = os.getenv('PING_ADDICTION_SOLVER')
 PING_AI_WILDLIFE_RANGER = os.getenv('PING_AI_WILDLIFE_RANGER')
+PING_PB_BACKEND = os.getenv("PING_PB_BACKEND")
 
 LOG_FILE = "keep_alive_log.txt"
 
@@ -32,6 +33,8 @@ def ping_servers():
         try:
             res_addiction_solver = requests.get(PING_ADDICTION_SOLVER, timeout=10)
             res_ai_wildlife_ranger = requests.get(PING_AI_WILDLIFE_RANGER, timeout=10)
+            res_pb_backend = requests.get(PING_PB_BACKEND, timeout=10)
+
             if res_addiction_solver.status_code == 200 and res_ai_wildlife_ranger.status_code == 200:
                 message_arts = f"Ping to addiction- solver was successful. Response: {res_addiction_solver.json().get('message')}"
                 print(message_arts)
@@ -49,13 +52,9 @@ def ping_servers():
                 print(message_ranger)
                 log_message(message_ranger)
             else:
-                message_arts = f"Either the app server is restarting or is busy: {res_addiction_solver.status_code}"
-                print(message_arts)
-                log_message(message_arts)
-
-                message_ranger = f"Either the app server is restarting or is busy: {res_ai_wildlife_ranger.status_code}"
-                print(message_ranger)
-                log_message(message_ranger)
+                message = f"{"Addiction solver: ", res_addiction_solver.status_code, "Ranger: ", res_ai_wildlife_ranger.status_code, "PB:", res_pb_backend}"
+                print(message)
+                log_message(message)
         except requests.RequestException as e:
             message = f"Failed to reach app.py. Network Issue: {e}"
             log_message(message)
